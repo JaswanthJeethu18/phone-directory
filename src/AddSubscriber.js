@@ -2,6 +2,7 @@ import React, { Component, useState } from "react";
 import Header from "./Header";
 import "./AddSubscriber.css";
 import { Link, useHistory } from "react-router-dom";
+import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
 
 export default function AddSubscriber({ addSubscriberHandler }) {
   const [addSubscriberForm, setAddSubscriberForm] = useState({
@@ -9,7 +10,7 @@ export default function AddSubscriber({ addSubscriberHandler }) {
     name: "",
     phone: "",
   });
-
+  `-`;
   const history = useHistory();
 
   const inputChangedHandler = (e) => {
@@ -35,31 +36,30 @@ export default function AddSubscriber({ addSubscriberHandler }) {
           <button className="custom-btn">Back</button>
         </Link>
 
-        <form className="subscriber-form" onSubmit={onFormSubmitted}>
-          <label htmlFor="name" className="label-control">
-            Name:{" "}
-          </label>
-          <br />
-          <input
-            id="name"
+        <ValidatorForm className="subscriber-form" onSubmit={onFormSubmitted}>
+          <TextValidator
+            label="Enter Name"
             type="text"
-            className="input-control"
+            onChange={inputChangedHandler}
             name="name"
-            onChange={inputChangedHandler}
-          />
+            value={name}
+            validators={["required"]}
+            errorMessages={["invalid name"]}
+          ></TextValidator>
+
           <br />
           <br />
-          <label htmlFor="phone" className="label-control">
-            Phone:{" "}
-          </label>
-          <br />
-          <input
-            id="phone"
+
+          <TextValidator
+            label="Phone Number"
             type="text"
-            className="input-control"
-            name="phone"
             onChange={inputChangedHandler}
-          />
+            name="phone"
+            value={phone}
+            validators={["required"]}
+            errorMessages={["invalid phone"]}
+          ></TextValidator>
+
           <br />
           <br />
 
@@ -77,7 +77,7 @@ export default function AddSubscriber({ addSubscriberHandler }) {
           <button type="submit" className="custom-btn add-btn">
             Add
           </button>
-        </form>
+        </ValidatorForm>
       </div>
     </div>
   );

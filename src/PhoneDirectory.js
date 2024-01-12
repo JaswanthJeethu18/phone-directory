@@ -18,14 +18,9 @@ export default function PhoneDirectory() {
   ]);
 
   const deleteSubscriberHandler = (subscriberId) => {
-    let subscriberIndex = 0;
-    subscribersList.forEach(function (subscriber, index) {
-      if (subscriber.id === subscriberId) {
-        subscriberIndex = index;
-      }
-    });
-    let newSubscribers = subscribersList;
-    newSubscribers.splice(subscriberIndex, 1);
+    const newSubscribers = subscribersList.filter(
+      (subscriber) => subscriber.id !== subscriberId
+    );
     setSubscribersList(newSubscribers);
   };
 
@@ -60,7 +55,6 @@ export default function PhoneDirectory() {
           path="/add"
           render={({ history }, props) => (
             <AddSubscriber
-              history={history}
               {...props}
               addSubscriberHandler={(newSubscriber) =>
                 addSubscriberHandler(newSubscriber)
